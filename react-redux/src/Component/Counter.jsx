@@ -2,39 +2,32 @@ import React from "react";
 import { useState } from "react";
 import { store } from "../Redux/store";
 import { addAction, reduceAction } from "../Redux/action";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Counter = () => {
-  //   let [count, setCount] = useState(0);
+  const counter = useSelector((store) => store.counter);
+  // let { dispatch, getState, subscribe } = store;
 
-  const [forceFulRender, setForceFulRender] = useState(0);
+  // subscribe(() => {
+  //   console.log("Notification");
+  //   setForceFulRender((prev) => prev + 1);
+  // });
 
-  //   let ourStore = store;
-  let { dispatch, getState, subscribe } = store;
-  //   console.log(ourStore);
-  //   console.log(getState());
-
-  subscribe(() => {
-    console.log("Notification");
-    setForceFulRender((prev) => prev + 1);
-  });
+  const dispatch = useDispatch();
 
   const handleAdd = () => {
-    // setCount((prev) => prev + 1);
-    // dispatch({ type: "ADD", payload: 1 });
     dispatch(addAction());
-    console.log(getState());
+    // console.log(getState());
   };
 
   const handleReduce = () => {
-    // setCount((prev) => prev - 1);
-    // dispatch({ type: "REDUCE", payload: 1 });
     dispatch(reduceAction());
-    console.log(getState());
+    // console.log(getState());
   };
 
   return (
     <div>
-      <h1>Counter:{getState().count}</h1>
+      <h1>Counter:{counter}</h1>
       <button onClick={handleAdd}>Add</button>
       <button onClick={handleReduce}>Reduce</button>
     </div>
